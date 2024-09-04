@@ -12,8 +12,14 @@ app.get("/read", async (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-    let data = await User.create(req.body , {username: req.body.username} , {password: req.body.password} , {email : req.body.email});
-    res.send(data);
+    let {username , password , email} = req.params;
+    if(username == username || password == password || email == email){
+        res.send("user already exists");
+    }
+    else{
+        let data = await User.create(req.body );
+        res.send(data);
+    }
 })
 app.patch("/update/:id", async (req, res)=> {
     let { id } = req.params;
